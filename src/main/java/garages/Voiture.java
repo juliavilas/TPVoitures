@@ -32,7 +32,6 @@ public class Voiture {
         if (this.estDansUnGarage() == true) {
             throw new IllegalArgumentException("La voiture est déjà dans un garage");
         } else {
-
             Stationnement s = new Stationnement(this, g);
             myStationnements.add(s);
         }
@@ -64,7 +63,6 @@ public class Voiture {
             Garage g = myStationnements.get(i).getGarage();
             garagesVisites.add(g);
         }
-        System.out.println("Les garages visités sont :" + garagesVisites);
         return garagesVisites;
     }
 
@@ -78,10 +76,8 @@ public class Voiture {
         } else {
             Stationnement dernierStationnement = myStationnements.get(myStationnements.size() - 1);
             if (dernierStationnement.estEnCours()) {
-                System.out.println("La voiture est dans un garage");
                 return true;
             } else {
-                System.out.println("La voiture n'est pas dans un garage");
                 return false;
             }
         }
@@ -102,11 +98,13 @@ public class Voiture {
      * @param out l'endroit où imprimer (ex: System.out)
      */
     public void imprimeStationnements(PrintStream out) {
-        for (int i = 0; i < myStationnements.size(); i++) {
-            System.out.println("Garage " + myStationnements.get(i).getGarage().getName() + ":");
-            System.out.println(myStationnements.get(i).toString());
+        for (Garage g : this.garagesVisites()) {
+            out.println("Garage " + g.getName() + ":");
+            for (int i = 0; i < myStationnements.size(); i++) {
+                if(g.equals(myStationnements.get(i).getGarage())){
+                out.println(myStationnements.get(i));
+                }
+            }
         }
-
     }
-
 }
